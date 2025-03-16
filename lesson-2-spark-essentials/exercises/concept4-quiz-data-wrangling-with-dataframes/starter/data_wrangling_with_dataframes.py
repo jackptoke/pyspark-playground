@@ -27,7 +27,9 @@ users_df = spark.read.json(path)
 # My approad
 print("My solution:")
 all_pages = users_df.select('page').drop_duplicates()
+all_pages.show()
 pages_visited = users_df.filter(users_df.userId == '').select('page').drop_duplicates()
+pages_visited.show()
 all_pages.subtract(pages_visited).orderBy(asc("page")).show()
 
 

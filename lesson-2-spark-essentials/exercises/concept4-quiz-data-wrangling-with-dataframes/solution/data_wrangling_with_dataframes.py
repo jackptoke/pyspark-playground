@@ -85,17 +85,13 @@ logs_df.filter(logs_df.page == 'NextSong') \
 # # Question 5 (challenge)
 # 
 # How many songs do users listen to on average between visiting our home page? Please round your answer to the closest integer.
-# 
-# 
-
-# TODO: filter out 0 sum and max sum to get more exact answer
-
+#
 user_window = Window \
     .partitionBy('userID') \
     .orderBy(desc('ts')) \
     .rangeBetween(Window.unboundedPreceding, 0)
 
-ishome = udf(lambda ishome : int(ishome == 'Home'), IntegerType())
+ishome = udf(lambda page : int(ishome == 'Home'), IntegerType())
 
 # Filter only NextSong and Home pages, add 1 for each time they visit Home
 # Adding a column called period which is a specific interval between Home visits

@@ -1,18 +1,12 @@
 # Take care of any imports
-from pyspark.sql import SparkSession
-from pyspark.sql.functions import udf
-from pyspark.sql.types import IntegerType
-from pyspark.sql.types import StringType
-from pyspark.sql.functions import desc
-from pyspark.sql.functions import sum as Fsum
-from pyspark.sql.functions import asc
-from pyspark.sql import Window
-
 from datetime import datetime
 
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
+from pyspark.sql import SparkSession
+from pyspark.sql import Window
+from pyspark.sql.functions import desc
+from pyspark.sql.functions import sum as Fsum
+from pyspark.sql.functions import udf
+from pyspark.sql.types import IntegerType
 
 # Create the Spark Context
 spark = SparkSession \

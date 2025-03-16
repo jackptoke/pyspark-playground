@@ -63,10 +63,11 @@ spark.sql("SELECT Artist, COUNT(*) AS Playcount FROM user_logs WHERE page = 'Nex
 # How many songs do users listen to on average between visiting our home page? Please round your answer to the closest integer.
 spark.sql("""
  SELECT ROUND(AVG(NumOfSongs), 0) 
-  FROM (SELECT sessionId, COUNT(*) NumOfSongs FROM user_logs GROUP BY sessionId)""").show()
+ FROM (SELECT sessionId, COUNT(*) NumOfSongs FROM user_logs GROUP BY sessionId)
+""").show()
 
 
-to_hour = udf(lambda x: datetime.fromtimestamp(x / 1000).strftime("%H"), StringType())
+to_hour = udf(lambda x: datetime.fromtimestamp(x/1000).strftime("%H"), StringType())
 to_date = udf(lambda x: datetime.fromtimestamp(x/1000).strftime("%d-%m-%Y"), StringType())
 
 song_played = user_logs.select("song", "ts") \
@@ -79,8 +80,6 @@ song_played.show(10)
 num_plays_per_hour = song_played.groupby(["date", "hour"]) \
     .agg({"*": "count"}) \
     .withColumnRenamed("count(1)", "NumOfTimesPlayed") \
-
-
 
 num_plays_per_hour.show(24)
 
