@@ -30,11 +30,15 @@ log_of_songs = [
 ]
 
 # parallelize the log_of_songs to use with Spark
-
+rdd = sc.parallelize(log_of_songs)
 
 # show the original input data is preserved
+rddCollect = rdd.collect()
+print("Parallised input data:")
+rdd.foreach(print)
 
-
+print("Original data END")
+print("_____________________________")
 # create a python function to convert strings to lowercase
 def convert_song_to_lowercase(song):
     return song.lower()
@@ -42,9 +46,13 @@ def convert_song_to_lowercase(song):
 print(convert_song_to_lowercase("Songtitle"))
 
 # use the map function to transform the list of songs with the python function that converts strings to lowercase
-
+lower_case_rdd = rdd.map(convert_song_to_lowercase)
 
 # Show the original input data is still mixed case
+print("Original input data:")
+rdd.foreach(print)
 
-
+print("Original data END")
 # Use lambda functions instead of named functions to do the same map operation
+lower_case_rdd2 = rdd.map(lambda song: song.lower())
+

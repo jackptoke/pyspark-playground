@@ -7,3 +7,5 @@ spark = SparkSession \
     .appName("Our first Python Spark SQL example") \
     .getOrCreate()
 
+result = spark.sparkContext.getConf().getAll()
+print(result)
